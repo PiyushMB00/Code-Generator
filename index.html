@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevGens - Code Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Fira+Code&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Background Auras -->
+    <div class="aura-bg">
+        <div class="aura aura-1"></div>
+        <div class="aura aura-2"></div>
+        <div class="aura aura-3"></div>
+    </div>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="accent">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        style="vertical-align: middle; margin-right: 6px;">
+                        <path d="M18 20c-4 0-6-3-6-8s2-8 6-8" />
+                        <path d="M6 4c4 0 6 3 6 8s-2 8-6 8" />
+                        <path d="M2 12h20" />
+                    </svg>
+                </span> PiscesForge
+            </div>
+            <div
+                style="font-size: 10px; color: var(--text-muted); padding: 0 16px; margin-bottom: 24px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">
+                Forge UI at the speed of thought</div>
+            <div class="search-container">
+                <input type="text" id="component-search" placeholder="Search components...">
+            </div>
+            <nav class="nav-links" id="sidebar-nav">
+                <!-- Autopopulated by JS -->
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header with Presets & Reset -->
+            <header class="top-bar">
+                <div class="project-manager" style="display: flex; gap: 8px; margin-right: 20px; align-items: center;">
+                    <select id="project-select" class="preset-btn"
+                        style="background: rgba(45, 212, 191, 0.1); border-color: var(--accent); color: var(--accent);">
+                        <option value="default">Default Project</option>
+                    </select>
+                    <button class="action-btn" id="save-project-btn" title="Manual Save Project"
+                        style="padding: 8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                            <polyline points="17 21 17 13 7 13 7 21" />
+                            <polyline points="7 3 7 8 15 8" />
+                        </svg></button>
+                    <button class="action-btn" id="new-project-btn" title="Create New Project"
+                        style="padding: 8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg></button>
+                </div>
+                <div class="presets">
+                    <span class="label">Presets:</span>
+                    <button class="preset-btn active" data-preset="modern">Modern</button>
+                    <button class="preset-btn" data-preset="glass">Glass</button>
+                    <button class="preset-btn" data-preset="neon">Neon</button>
+                    <button class="preset-btn" data-preset="neumorphism">Neumorphism</button>
+                    <button class="preset-btn" data-preset="brutalism">Brutalism</button>
+                    <button class="preset-btn" data-preset="cyberpunk">Cyberpunk</button>
+                    <button class="preset-btn" data-preset="wireframe">Wireframe</button>
+                    <button class="preset-btn" data-preset="retro">Retro 95</button>
+                    <button class="preset-btn" data-preset="apple">MacOS</button>
+                    <button class="preset-btn" data-preset="material">Material</button>
+                    <button class="preset-btn" data-preset="holo">Holographic</button>
+                    <button class="preset-btn" data-preset="pisces"
+                        style="border-color: #2dd4bf; color: #2dd4bf;">Pisces Vibe</button>
+                </div>
+                <div style="display: flex; gap: 8px; margin-right: 24px; flex-shrink: 0;">
+                    <button class="action-btn" id="undo-btn" title="Undo (Ctrl+Z)" style="padding: 8px;"><svg width="16"
+                            height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 14 4 9l5-5" />
+                            <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11" />
+                        </svg></button>
+                    <button class="action-btn" id="redo-btn" title="Redo (Ctrl+Y)" style="padding: 8px;"><svg width="16"
+                            height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="m15 14 5-5-5-5" />
+                            <path d="M20 9H9.5A5.5 5.5 0 0 0 4 14.5v0A5.5 5.5 0 0 0 9.5 20H13" />
+                        </svg></button>
+                </div>
+                <div style="display: flex; gap: 12px; align-items: center; flex-shrink: 0;">
+                    <select id="theme-palette"
+                        style="background: var(--bg-input); color: var(--text-main); border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; font-size: 13px; outline: none; cursor: pointer;">
+                        <option value="custom">🎨 Custom Palette</option>
+                        <option value="ocean">🌊 Ocean Depth</option>
+                        <option value="sunset">🌇 Sunset Glow</option>
+                        <option value="forest">🌲 Forest Canopy</option>
+                        <option value="cyber">🤖 Cyber Pink</option>
+                        <option value="aurora">🌌 Aurora Borealis</option>
+                        <option value="monochrome">⚫ Monochrome</option>
+                    </select>
+                    <button class="action-btn reset-btn" id="reset-btn" style="flex-shrink: 0;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                            <path d="M3 3v5h5" />
+                        </svg>
+                        <span>Reset</span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="workspace">
+                <!-- Controls Panel -->
+                <section class="panel controls-panel">
+                    <h2 class="panel-title" style="display: flex; align-items: center; justify-content: space-between;">
+                        <span id="active-component-title">Controls</span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <button id="clear-canvas-btn"
+                                style="display: none; background: #ef4444; color: #fff; border: none; border-radius: 4px; padding: 2px 8px; font-size: 11px; cursor: pointer;">Clear
+                                All</button>
+                            <button id="fav-btn"
+                                style="background: transparent; border: none; font-size: 20px; cursor: pointer; color: var(--text-muted); transition: 0.2s;"
+                                title="Toggle Favorite">☆</button>
+                        </div>
+                    </h2>
+                    <div id="dynamic-controls" class="controls-wrapper">
+                        <!-- Autopopulated by JS -->
+                    </div>
+                </section>
+
+                <!-- Preview & Output Area -->
+                <section class="display-area">
+                    <!-- Live Preview Box -->
+                    <div class="panel preview-panel">
+                        <h2 class="panel-title"
+                            style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                                <span>Live Preview</span>
+                                <div class="viewport-toggles"
+                                    style="display: flex; gap: 4px; background: var(--bg-input); padding: 2px 4px; border-radius: 4px;">
+                                    <button class="vp-btn active" data-vp="100%"
+                                        style="background: var(--border); border: none; cursor: pointer; border-radius: 2px; padding: 2px 6px;">💻</button>
+                                    <button class="vp-btn" data-vp="768px"
+                                        style="background: transparent; border: none; cursor: pointer; border-radius: 2px; padding: 2px 6px;">📏</button>
+                                    <button class="vp-btn" data-vp="375px"
+                                        style="background: transparent; border: none; cursor: pointer; border-radius: 2px; padding: 2px 6px;">📱</button>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button id="share-btn" class="action-btn" style="padding: 4px 12px; font-size: 12px;">🔗
+                                    Share</button>
+                                <button id="theme-toggle-btn" class="action-btn"
+                                    style="padding: 4px 12px; font-size: 12px;">Light Mode</button>
+                            </div>
+                        </h2>
+                        <div
+                            style="flex: 1; width: 100%; display: flex; justify-content: center; align-items: flex-start; background: #111; overflow: auto; min-height: 0; padding: 20px;">
+                            <div class="preview-box" id="preview-box"
+                                style="margin: 0 auto; transition: width 0.3s ease; min-height: 400px; width: 100%; flex: 0 0 auto; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-dark);">
+                                <!-- Preview Content injected via JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Code Output Box -->
+                    <div class="panel code-panel">
+                        <div class="code-header">
+                            <div class="code-tabs">
+                                <button class="tab-btn active" data-tab="html">HTML</button>
+                                <button class="tab-btn" data-tab="css">CSS</button>
+                                <button class="tab-btn" data-tab="js">JS</button>
+                                <button class="tab-btn" data-tab="react">React</button>
+                                <button class="tab-btn" data-tab="tailwind">Tailwind</button>
+                            </div>
+                            <div
+                                style="display: flex; gap: 8px; align-items: center; justify-content: flex-end; flex-wrap: wrap; margin-left: 12px;">
+                                <button class="action-btn" id="toggle-canvas-btn"
+                                    style="background: var(--accent); color: white; border: none; padding: 4px 12px; font-size: 13px;">View
+                                    (0)</button>
+                                <button class="action-btn" id="add-canvas-btn"
+                                    style="background: var(--bg-input); font-size: 18px; padding: 0 10px;"
+                                    title="Add Component to Canvas">＋</button>
+                                <button class="action-btn" id="export-btn" title="Export as Standalone HTML">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                        <polyline points="7 10 12 15 17 10" />
+                                        <line x1="12" y1="15" x2="12" y2="3" />
+                                    </svg>
+                                    <span style="display: none;">HTML</span>
+                                </button>
+                                <button class="action-btn" id="zip-btn"
+                                    style="background: var(--bg-card); border-color: var(--accent); color: var(--accent);"
+                                    title="Download Project as ZIP">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                        <polyline points="17 8 12 3 7 8" />
+                                        <line x1="12" y1="3" x2="12" y2="15" />
+                                    </svg>
+                                    <span style="display: none;">ZIP</span>
+                                </button>
+                                <button class="action-btn copy-btn" id="copy-btn">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                    </svg>
+                                    <span id="copy-text">Copy</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><code id="code-output" class="language-html"></code></pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Image Picker Modal -->
+    <div id="image-picker-modal" class="modal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h3>Select Image</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="search-container">
+                <input type="text" id="unsplash-search" placeholder="Search Unsplash images...">
+            </div>
+            <div id="image-grid" class="image-grid"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="components_data.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
